@@ -1,25 +1,25 @@
 {
-  "name": "vscode-react-component-generator",
+  "name": "vscode-react-component-generator-w-storybook",
   "displayName": "VSCode React Component Generator",
   "description": "Generates React component files automatically",
   "version": "0.0.3",
-  "publisher": "abdullahceylan",
+  "publisher": "retardedjs",
   "author": {
-    "name": "Abdullah Ceylan",
-    "email": "ben@abdullahceylan.com"
+    "name": "Fedor Kirpichev",
+    "email": "kirpichevf@gmail.com"
   },
-  "homepage": "https://github.com/abdullahceylan/vscode-react-component-generator",
+  "homepage": "https://github.com/Mory1879/vscode-react-component-generator",
   "galleryBanner": {
-      "color": "#0273D4",
-      "theme": "dark"
+    "color": "#0273D4",
+    "theme": "dark"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/abdullahceylan/vscode-react-component-generator.git"
+    "url": "https://github.com/Mory1879/vscode-react-component-generator.git"
   },
   "bugs": {
-    "url": "https://github.com/abdullahceylan/vscode-react-component-generator/issues",
-    "email": "ben@abdullahceylan.com"
+    "url": "https://github.com/Mory1879/vscode-react-component-generator/issues",
+    "email": "kirpichevf@gmail.com"
   },
   "license": "MIT",
   "engines": {
@@ -43,7 +43,9 @@
     "onCommand:extension.genReactContainerComponentFiles",
     "onCommand:extension.genReactStatelessComponentFiles",
     "onCommand:extension.genReactReduxContainerComponentFiles",
-    "onCommand:extension.genReactReduxStatelessComponentFiles"
+    "onCommand:extension.genReactReduxStatelessComponentFiles",
+    "onCommand:extension.genReactStorybookContainerComponentFiles",
+    "onCommand:extension.genReactStorybookStatelessComponentFiles"
   ],
   "main": "./out/src/extension",
   "icon": "assets/images/icon.png",
@@ -103,7 +105,6 @@
           "default": "styled-components (.js)",
           "description": "The type of stylesheet file to create"
         },
-
         "ACReactComponentGenerator.styleFile.suffix": {
           "type": "string",
           "default": ".styles",
@@ -118,6 +119,16 @@
           "type": "string",
           "default": "js",
           "description": "The extension of generated component index file"
+        },
+        "ACReactComponentGenerator.storybookFile.create": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to generate component's stories file or not. e.g.: index.(extension)"
+        },
+        "ACReactComponentGenerator.storybookFile.extension": {
+          "type": "string",
+          "default": "stories.jsx",
+          "description": "The extension of generated stories file"
         }
       }
     },
@@ -137,6 +148,14 @@
       {
         "command": "extension.genReactReduxStatelessComponentFiles",
         "title": "New React Stateless Component with Redux"
+      },
+      {
+        "command": "extension.genReactStorybookContainerComponentFiles",
+        "title": "New React Container Component with Storybook"
+      },
+      {
+        "command": "extension.genReactStorybookStatelessComponentFiles",
+        "title": "New React Stateless Component with Storybook"
       }
     ],
     "menus": {
@@ -156,6 +175,14 @@
         {
           "command": "extension.genReactReduxStatelessComponentFiles",
           "group": "navigation"
+        },
+        {
+          "command": "extension.genReactStorybookContainerComponentFiles",
+          "group": "navigation"
+        },
+        {
+          "command": "extension.genReactStorybookStatelessComponentFiles",
+          "group": "navigation"
         }
       ]
     }
@@ -172,7 +199,6 @@
     "eslint": "^4.11.0",
     "@types/node": "^8.10.25",
     "@types/mocha": "^2.2.42"
-
   },
   "dependencies": {
     "change-case": "^3.0.2",

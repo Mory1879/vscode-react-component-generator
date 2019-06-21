@@ -1,6 +1,5 @@
 import React, { PureComponent } from {quotes}react{quotes};
 import PropTypes from {quotes}prop-types{quotes};
-//import { Test } from {quotes}./{componentName}.styles{quotes};
 
 class {componentName} extends PureComponent { 
   constructor(props) {

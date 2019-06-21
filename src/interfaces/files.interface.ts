@@ -1,11 +1,8 @@
 import {
-    IndexInterface,
-    CSSInterface,
-    ComponentInterface,
- } from './types';
- 
-export {
-    IndexInterface,
-    CSSInterface,
-    ComponentInterface,
-};
+  IndexInterface,
+  CSSInterface,
+  ComponentInterface,
+  StorybookInterface
+} from "./types";
+
+export { IndexInterface, CSSInterface, ComponentInterface, StorybookInterface };

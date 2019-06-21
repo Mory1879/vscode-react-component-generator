@@ -1,0 +1,16 @@
+import React from {quotes}react{quotes};
+import { storiesOf, addDecorator } from {quotes}@storybook/react{quotes};
+import { muiTheme } from {quotes}storybook-addon-material-ui{quotes};
+
+import { themeConfig } from {quotes}../../lib/theme{quotes};
+import StyleProviderDecorator from {quotes}../../.storybook/StyleProviderDecorator{quotes};
+
+import {componentName} from {quotes}./{componentName}{quotes};
+
+addDecorator(muiTheme(themeConfig));
+addDecorator(StyleProviderDecorator);
+
+storiesOf("UI-kit/{componentName}", module)
+  .add("default", () => {
+    return <{componentName} green />;
+  });
