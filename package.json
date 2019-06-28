@@ -129,6 +129,26 @@
           "type": "string",
           "default": "stories.jsx",
           "description": "The extension of generated stories file"
+        },
+        "ACReactComponentGenerator.storybook.themeConfigName": {
+          "type": "string",
+          "default": "",
+          "description": "Name of the theme config file for storybook"
+        },
+        "ACReactComponentGenerator.storybook.themeConfigModuleName": {
+          "type": "string",
+          "default": "",
+          "description": "Name of the theme config exported module for storybook"
+        },
+        "ACReactComponentGenerator.storybook.styleProviderName": {
+          "type": "string",
+          "default": "",
+          "description": "Name of the theme styles provider file for storybook"
+        },
+        "ACReactComponentGenerator.storybook.styleProviderModuleName": {
+          "type": "string",
+          "default": "",
+          "description": "Name of the theme styles provider module for storybook"
         }
       }
     },

@@ -65,8 +65,6 @@ export class FileHelper {
       .replace(/{componentName}/g, compName)
       .replace(/{quotes}/g, this.getQuotes(globalConfig));
 
-    // console.log('content', componentContent);
-
     componentContent = removeBetweenTags(
       globalConfig.lifecycleType,
       removeLifecycleType,
@@ -114,7 +112,9 @@ export class FileHelper {
   public static createStorybook(
     componentDir: string,
     componentName: string,
-    suffix: string
+    suffix: string,
+    themePath: string,
+    providerPath: string
   ): Observable<string> {
     const globalConfig: GlobalInterface = getConfig().get("global");
     const storybookConfig: StorybookInterface = getConfig().get(
@@ -128,10 +128,18 @@ export class FileHelper {
 
     const compName = this.setName(componentName);
 
+    const themeImportPath = path.relative(componentDir, themePath);
+    const providerImportPath = path.relative(componentDir, providerPath);
+    const providerImportName = path.parse(providerImportPath).name;
+
     let componentContent = fs
       .readFileSync(templateFileName)
       .toString()
       .replace(/{componentName}/g, compName)
+      .replace(/{themeConfig}/g, "")
+      .replace(/{ProviderName}/g, providerImportName)
+      .replace(/{providerPath}/g, providerImportPath)
+      .replace(/{themePath}/g, themeImportPath)
       .replace(/{quotes}/g, this.getQuotes(globalConfig));
 
     let filename = `${componentDir}/${compName}.${storybookConfig.extension}`;

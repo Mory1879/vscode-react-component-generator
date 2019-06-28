@@ -5,14 +5,56 @@ import { ExtensionContext, workspace, window, commands } from "vscode";
 import { paramCase } from "change-case";
 import { Observable } from "rxjs";
 
-import { FileHelper, logger } from "./helpers";
+import getConfig, { FileHelper, logger } from "./helpers";
 import { Config as ConfigInterface } from "./config.interface";
 
 const TEMPLATE_SUFFIX_SEPERATOR = "-";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
-export function activate(context: ExtensionContext) {
+export async function activate(context: ExtensionContext) {
+  const storyConfig = [
+    getConfig().get("storybook.themeConfigName"),
+    getConfig().get("storybook.themeConfigModuleName"),
+    getConfig().get("storybook.styleProviderName"),
+    getConfig().get("storybook.styleProviderModuleName")
+  ];
+  const hasConfig = storyConfig.reduce((acc, entry) => {
+    if (!!acc && entry.length > 0) {
+      return true;
+    }
+    return false;
+  }, true);
+
+  if (!hasConfig) {
+    logger("error", "Please update settings for Storybook before proceeding!");
+    throw new Error("Please update settings for Storybook before proceeding!");
+  }
+
+  const storybookThemeFileName = getConfig().get("storybook.themeConfigName");
+  const storybookProviderFileName = getConfig().get(
+    "storybook.styleProviderName"
+  );
+
+  const provider = await workspace.findFiles(
+    `**/${storybookProviderFileName}`,
+    "**/node_modules/**",
+    10
+  );
+  const theme = await workspace.findFiles(
+    `**/${storybookThemeFileName}`,
+    "**/node_modules/**",
+    10
+  );
+
+  let themePath, providerPath;
+  for (const file of provider) {
+    providerPath = file.fsPath;
+  }
+  for (const file of theme) {
+    themePath = file.fsPath;
+  }
+
   const createComponent = (
     uri,
     suffix: string = "",
@@ -42,7 +84,13 @@ export function activate(context: ExtensionContext) {
           filesToCreate = [
             ...filesToCreate,
             FileHelper.createComponent(componentDir, componentName, compType),
-            FileHelper.createStorybook(componentDir, componentName, suffix)
+            FileHelper.createStorybook(
+              componentDir,
+              componentName,
+              suffix,
+              themePath,
+              providerPath
+            )
           ];
         } else {
           filesToCreate = [

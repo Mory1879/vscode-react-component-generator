@@ -1,12 +1,19 @@
 import React from {quotes}react{quotes};
 import PropTypes from {quotes}prop-types{quotes};
-//import { Test } from './{componentName}.styles';
 
-const {componentName} = (props) => (
-  <div className="{componentName}Wrapper">
-    Test content
-  </div>
-);
+import { makeStyles } from "@material-ui/styles";
+
+const useStyles = makeStyles(theme => {});
+
+const {componentName} = (props) => {
+  const classes = useStyles();
+
+  return (
+    <div className={classes.{componentName}Wrapper}>
+      Test content
+    </div>
+  );
+}
 
 {componentName}.propTypes = {
   // bla: PropTypes.string,
